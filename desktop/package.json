@@ -1,0 +1,19 @@
+{
+  "name": "fmt-desktop",
+  "version": "0.3.0",
+  "private": true,
+  "description": "本地文件格式转换工具 · 桌面端（门户认证 + 本地通行证）",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "node scripts/run-electron.mjs",
+    "start:npm": "electron .",
+    "preview": "node tools/preview-server.mjs --port 5178",
+    "preview:build": "node tools/build-preview.mjs",
+    "stub": "node tools/stub-server.mjs",
+    "smoke": "node tools/auth-smoke.mjs",
+    "diag": "node tools/diag-electron.mjs"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0"
+  }
+}

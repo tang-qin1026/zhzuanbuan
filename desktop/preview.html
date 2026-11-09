@@ -1,0 +1,1601 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>格式转换器 · 界面预览</title>
+    <style>
+:root {
+  --bg: #fbf4ea;
+  --card: #ffffff;
+  --ink: #2a2320;
+  --muted: #8b7a6b;
+  --line: #ebdfd0;
+  --accent: #d9643a;
+  --accent-strong: #c4552f;
+  --danger: #b03a2e;
+  --danger-bg: #fdecea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #fff8ee 0%, rgba(255, 248, 238, 0) 60%),
+    radial-gradient(900px 500px at 100% 110%, #f6e7d4 0%, rgba(246, 231, 212, 0) 55%),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── 顶栏 ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(180, 150, 120, 0.18);
+  flex: 0 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ver {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: rgba(180, 150, 120, 0.12);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.platform {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── 视图 ── */
+.view {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── 登录卡 ── */
+.login-card {
+  width: 384px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px 30px 26px;
+  box-shadow:
+    0 1px 2px rgba(90, 60, 30, 0.04),
+    0 18px 40px -12px rgba(120, 85, 50, 0.16);
+}
+
+.login-head h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.login-head {
+  margin-bottom: 24px;
+}
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fffdfa;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(217, 100, 58, 0.12);
+}
+
+input::placeholder {
+  color: #b9a897;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0 18px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.remember input {
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+.hint {
+  font-size: 12px;
+  color: #b09a86;
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+.error svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.primary {
+  position: relative;
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.06s, box-shadow 0.15s;
+  box-shadow: 0 6px 16px -8px rgba(217, 100, 58, 0.9);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.primary:disabled {
+  opacity: 0.72;
+  cursor: default;
+}
+
+.btn-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.footnote {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.footnote b {
+  color: #6f5c4b;
+  font-weight: 600;
+}
+
+.portal-line {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: #b09a86;
+  word-break: break-all;
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  background: #fff4e2;
+  color: #9a5b18;
+  border: 1px solid #f0dcbe;
+}
+
+.banner.danger {
+  background: #fdecea;
+  color: #b03a2e;
+  border-color: #f3cdc7;
+}
+
+/* ── 登录后 ── */
+.home {
+  width: 100%;
+  max-width: 840px;
+}
+
+.greet h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.greet .sub {
+  margin-top: 6px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.card-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.card-value {
+  font-size: 14.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+code.card-value {
+  font-family: "Cascadia Mono", "Consolas", monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.dropzone {
+  margin-top: 20px;
+  border: 1.5px dashed #d9c7b3;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 38px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #7d6a58;
+}
+
+.dropzone p {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.muted {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ghost {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #6b5a4a;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ghost:hover {
+  background: #fdf6ee;
+  border-color: #dccdb9;
+}
+
+/* ── 转换面板 ── */
+.dropzone {
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dropzone:hover,
+.dropzone.dragging {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.dropzone.disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.convert {
+  margin-top: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.file-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-meta {
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.convert-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.target {
+  flex: 1 1 auto;
+  display: block;
+}
+
+select {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fffdfa;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+}
+
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 100, 58, 0.12);
+}
+
+.primary.compact {
+  width: auto;
+  flex: 0 0 auto;
+  height: 42px;
+  padding: 0 22px;
+  font-size: 14px;
+}
+
+.convert-status {
+  font-size: 13px;
+  color: var(--muted);
+  min-height: 18px;
+}
+
+.convert-status[data-kind="error"] {
+  color: var(--danger);
+}
+
+.convert-status[data-kind="ok"] {
+  color: #2f7d4f;
+}
+
+#download-link {
+  align-self: flex-start;
+  text-decoration: none;
+  line-height: 36px;
+  height: 38px;
+  padding: 0 16px;
+  display: inline-block;
+}
+
+/* ── 批量列表 ── */
+.file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.file-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 96px auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffdfa;
+  font-size: 13px;
+}
+
+.file-item .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.file-item .meta {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.file-item .status {
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.file-item .status.ok { color: #2f7d4f; }
+.file-item .status.error { color: var(--danger); }
+
+.file-item .action {
+  justify-self: end;
+}
+
+.file-item button.link {
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.file-item button.link:hover { text-decoration: underline; }
+
+#cancel-btn {
+  height: 42px;
+}
+
+/* ── 支持的转换（矩阵） ── */
+.matrix {
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.matrix-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.matrix-head h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.matrix-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.matrix-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.matrix-kind {
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-right: 4px;
+}
+
+.matrix-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fffdfa;
+  color: #5c4b3d;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #fff;
+}
+
+.chip .from {
+  color: var(--muted);
+}
+
+.chip .arrow {
+  color: #c9b7a2;
+}
+
+.chip .to {
+  font-weight: 600;
+}
+
+.chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.chip .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2f7d4f;
+}
+
+.chip:disabled .dot {
+  background: #c0b3a5;
+}
+
+/* 矩阵行：类型 | 源格式 | 箭头 | 目标 */
+.matrix-row {
+  grid-template-columns: max-content minmax(0, 1fr) auto auto;
+  align-items: center;
+}
+
+.matrix-src {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matrix-arrow {
+  color: #c9b7a2;
+  font-size: 12px;
+}
+
+
+.row-target {
+  height: 28px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fffdfa;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: none;
+}
+
+.row-target:focus {
+  border-color: var(--accent);
+}
+
+.row-target:disabled {
+  opacity: 0.6;
+}
+
+.chip .mark {
+  color: #c05b4d;
+  font-weight: 700;
+}
+
+</style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <rect x="1" y="1" width="24" height="24" rx="7" fill="#D9643A" />
+            <path d="M8 13h9M13.5 9.5 17 13l-3.5 3.5" stroke="#fff" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+          <span>格式转换器</span>
+          <span class="ver" id="app-ver">v0.1.0</span>
+        </div>
+        <div class="platform" id="platform">云平台认证</div>
+      </header>
+
+      <!-- 登录 -->
+      <main id="view-login" class="view">
+        <section class="login-card">
+          <div class="login-head">
+            <h1>登录</h1>
+            <p class="sub">使用云平台账号继续</p>
+          </div>
+
+          <form id="login-form" autocomplete="off" novalidate>
+            <label class="field">
+              <span class="label">账号</span>
+              <input id="username" name="username" type="text" placeholder="用户名或手机号"
+                     autocomplete="username" spellcheck="false" />
+            </label>
+
+            <label class="field">
+              <span class="label">密码</span>
+              <input id="password" name="password" type="password" placeholder="请输入密码"
+                     autocomplete="current-password" />
+            </label>
+
+            <div class="row">
+              <label class="remember">
+                <input id="remember" type="checkbox" />
+                <span>记住账号</span>
+              </label>
+              <span class="hint" id="net-hint">仅登录时联网</span>
+            </div>
+
+            <div class="error hidden" id="error-box" role="alert">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4" />
+                <path d="M8 4.6v4.2M8 11.2v.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+              <span id="error-text"></span>
+            </div>
+
+            <button id="login-btn" class="primary" type="submit">
+              <span class="btn-label">登录</span>
+              <span class="btn-spinner hidden" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <p class="footnote">
+            登录状态由服务端签发，在线时自动续期，刷新令牌 14 天有效。
+          </p>
+          <p class="portal-line hidden" id="portal-line"></p>
+        </section>
+      </main>
+
+      <!-- 登录后 -->
+      <main id="view-main" class="view hidden">
+        <section class="home">
+          <div class="greet">
+            <h1>你好，<span id="user-name">—</span></h1>
+            <p class="sub" id="auth-note">已完成云平台认证</p>
+          </div>
+
+          <div class="banner hidden" id="banner"></div>
+
+          <div class="cards">
+            <div class="card">
+              <span class="card-label">角色</span>
+              <span class="card-value" id="user-role">—</span>
+            </div>
+            <div class="card">
+              <span class="card-label">登录有效期至</span>
+              <span class="card-value" id="valid-until">—</span>
+            </div>
+            <div class="card">
+              <span class="card-label">剩余天数</span>
+              <span class="card-value" id="remaining">—</span>
+            </div>
+          </div>
+
+          <div class="dropzone" id="dropzone" role="button" tabindex="0">
+            <svg width="42" height="42" viewBox="0 0 42 42" aria-hidden="true">
+              <rect x="6" y="4" width="30" height="34" rx="6" fill="none" stroke="#C9B7A2" stroke-width="2" />
+              <path d="M14 20h14M21 15.5 25.5 20 21 24.5" stroke="#C9B7A2" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+            <p id="drop-title">选择文件开始转换</p>
+            <span class="muted" id="drop-hint">可以一次选多个，也可以直接拖进来</span>
+            <input type="file" id="file-input" accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.odt,.ods,.odp,.rtf,.txt,.csv" multiple hidden />
+          </div>
+
+          <div class="convert hidden" id="convert-panel">
+            <div class="convert-row">
+              <button id="convert-btn" class="primary compact" type="button">开始转换</button>
+              <button id="cancel-btn" class="ghost hidden" type="button">取消</button>
+              <button id="clear-btn" class="ghost hidden" type="button">清空列表</button>
+            </div>
+            <div class="convert-status" id="convert-status"></div>
+            <ul class="file-list" id="file-list"></ul>
+          </div>
+
+          <section class="matrix hidden" id="matrix">
+            <div class="matrix-head">
+              <h2>支持的转换</h2>
+              <span class="muted">点任意一项，直接按这个组合选文件</span>
+            </div>
+            <div class="matrix-body" id="matrix-body"></div>
+          </section>
+
+          <div class="actions">
+            <button id="logout-btn" class="ghost" type="button">退出登录</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>window.__FMT_KINDS__ = [{"kind":"image","label":"图片","exts":["ai","avif","bmp","gif","heic","heif","ico","j2k","jfif","jp2","jpe","jpeg","jpg","jxl","png","ppm","psd","qoi","svg","tga","tif","tiff","webp"],"targets":["png","jpg","webp","gif","avif","tiff","ico","bmp","tga","jp2","ppm","pdf","txt"],"experimental":["ai","heic","heif","j2k","jp2","jxl","ppm","psd","qoi","tga"],"unsupported":{},"engine":"ffmpeg","available":true},{"kind":"text","label":"文本","exts":["csv","epub","htm","html","json","log","markdown","md","mobi","txt","xml","yaml","yml"],"targets":["txt","md","html","json","csv","docx","epub"],"experimental":[],"unsupported":{"docx":"需要 Word 引擎（未接入）","epub":"需要电子书引擎（未接入）"},"engine":"text","available":true},{"kind":"subtitle","label":"字幕","exts":["srt","vtt","ass","ssa"],"targets":["srt","vtt","ass","ssa","txt"],"experimental":[],"unsupported":{},"engine":"subtitle","available":true},{"kind":"document","label":"Word 文档","exts":["doc","docx","odt","odf","rtf","wpd","wps","wpt"],"targets":["pdf","docx","odt","rtf","txt","html","md"],"experimental":["wpd","wps","wpt"],"unsupported":{"md":"LibreOffice 不直接产出 Markdown"},"engine":"libreoffice","available":true},{"kind":"spreadsheet","label":"Excel 表格","exts":["csv","et","ett","ods","tsv","xls","xlsm","xlsx"],"targets":["pdf","xlsx","xls","ods","csv","html"],"experimental":["et","ett"],"unsupported":{},"engine":"libreoffice","available":true},{"kind":"presentation","label":"PPT 演示","exts":["dps","dpt","odp","ppt","pptx"],"targets":["pdf","pptx","odp","html","png","jpg"],"experimental":["dps","dpt"],"unsupported":{},"engine":"libreoffice","available":true},{"kind":"pdf","label":"PDF","exts":["pdf"],"targets":["png","jpg","txt","html","docx","xlsx","md"],"experimental":[],"unsupported":{"html":"需要 LibreOffice HTML 导出，链路上未接","xlsx":"表格重建质量不稳定，暂不提供","md":"Markdown 不适用"},"engine":"poppler","available":true},{"kind":"audio","label":"音频","exts":["aac","flac","m4a","mp3","ogg","opus","wav","wma"],"targets":["mp3","wav","flac","m4a","ogg","aac","opus","wma"],"experimental":[],"unsupported":{},"engine":"ffmpeg","available":true},{"kind":"video","label":"视频","exts":["avi","flv","m2ts","m4s","m4v","mkv","mov","mp4","mst","mts","ts","webm","wmv"],"targets":["mp4","webm","mkv","mov","gif","mp3","wav","flac","m4a","ogg","aac","opus","wma"],"experimental":[],"unsupported":{},"engine":"ffmpeg","available":true}];</script>
+<script>
+
+// 预览用 mock：形状与 preload 暴露的 window.api 完全一致
+(() => {
+  const KEY = 'fmt.preview.session';
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  const read = () => {
+    try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; }
+  };
+  const makeSession = (username) => {
+    const now = Date.now();
+    return {
+      displayName: username === 'demo' ? '演示用户' : username,
+      username: 'portal_' + username,
+      role: 'user',
+      enterpriseId: null,
+      scope: null,
+      mustChangePassword: username === 'mustchange',
+      enterpriseSuspended: username === 'suspended',
+      quotaBytes: 21474836480,
+      usedBytes: 1073741824,
+      expiresAt: now + 14 * 24 * 60 * 60 * 1000,
+      remainingDays: 14,
+    };
+  };
+
+  window.api = {
+    auth: {
+      login: async (username, password) => {
+        await sleep(600);
+        if (username === 'disabled') {
+          return { ok: false, error: { code: 'AUTH_DISABLED', message: '账号已被禁用' } };
+        }
+        if (password !== 'demo1234') {
+          return {
+            ok: false,
+            error: {
+              code: 'AUTH_BAD_CREDENTIALS',
+              message: '用户名或密码错误，还可尝试 2 次（超过将锁定 15 分钟）',
+            },
+          };
+        }
+        const session = makeSession(username);
+        localStorage.setItem(KEY, JSON.stringify(session));
+        return { ok: true, data: session };
+      },
+      session: async () => ({ ok: true, data: read() }),
+      status: async () => ({ ok: true, data: read() ? 'authenticated' : 'need-login' }),
+      logout: async () => {
+        localStorage.removeItem(KEY);
+        return { ok: true, data: true };
+      },
+    },
+    app: {
+      info: async () => ({
+        ok: true,
+        data: { version: '0.1.0', serverBaseUrl: '预览模式', refreshSkewMinutes: 5, dataDir: '—', dev: true },
+      }),
+    },
+    convert: {
+      formats: async () => ({
+        ok: true,
+        data: { kinds: window.__FMT_KINDS__ || [] },
+      }),
+      __legacyFormats: async () => ({
+        ok: true,
+        data: {
+          kinds: [
+            { kind: 'image', label: '图片', exts: ['png', 'jpg', 'jpeg', 'webp', 'bmp', 'gif', 'tif', 'tiff'], targets: ['png', 'jpg', 'webp', 'bmp'], engine: 'ffmpeg', available: true },
+            { kind: 'audio', label: '音频', exts: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a'], targets: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a'], engine: 'ffmpeg', available: true },
+            { kind: 'video', label: '视频', exts: ['mp4', 'mkv', 'avi', 'mov', 'webm'], targets: ['mp4', 'mkv', 'webm', 'gif'], engine: 'ffmpeg', available: true },
+            { kind: 'document', label: '文档', exts: ['doc', 'docx', 'odt', 'rtf', 'txt'], targets: ['pdf'], engine: 'libreoffice', available: true },
+            { kind: 'spreadsheet', label: '表格', exts: ['xls', 'xlsx', 'ods', 'csv'], targets: ['pdf'], engine: 'libreoffice', available: true },
+            { kind: 'presentation', label: '演示', exts: ['ppt', 'pptx', 'odp'], targets: ['pdf'], engine: 'libreoffice', available: true },
+            { kind: 'pdf', label: 'PDF', exts: ['pdf'], targets: ['png', 'jpg'], engine: 'poppler', available: true },
+          ],
+        },
+      }),
+      run: async () => ({
+        ok: false,
+        error: { code: 'PREVIEW', message: '预览模式不做真实转换' },
+      }),
+    },
+  };
+
+  addEventListener('DOMContentLoaded', () => {
+    const tag = document.createElement('div');
+    tag.textContent = '浏览器预览 · 登录结果为模拟数据';
+    tag.style.cssText =
+      'position:fixed;left:12px;bottom:10px;font:11px/1.4 system-ui,sans-serif;' +
+      'color:#a99a89;background:rgba(255,255,255,.7);border:1px solid #eee2d3;' +
+      'border-radius:999px;padding:3px 10px;pointer-events:none';
+    document.body.appendChild(tag);
+  });
+})();
+
+</script>
+    <script>
+'use strict';
+
+const $ = (sel) => document.querySelector(sel);
+
+/** 仅当服务端没给 message 时兜底 */
+const FALLBACK_TEXT = {
+  AUTH_BAD_CREDENTIALS: '用户名或密码错误',
+  AUTH_LOCKED: '尝试次数过多，账号已临时锁定，请稍后再试',
+  AUTH_DISABLED: '账号已被禁用，请联系管理员',
+  AUTH_SESSION_EXPIRED: '登录已过期，请重新登录',
+  AUTH_BAD_REQUEST: '请求参数有误',
+  AUTH_UNAVAILABLE: '服务暂不可用，请稍后再试',
+  AUTH_INPUT_EMPTY: '请输入账号和密码',
+  AUTH_STORAGE_ERROR: '本地登录状态保存失败，请检查磁盘权限',
+  AUTH_CONFIG_ERROR: '未配置服务端地址，请联系管理员',
+};
+
+const els = {
+  viewLogin: $('#view-login'),
+  viewMain: $('#view-main'),
+  form: $('#login-form'),
+  username: $('#username'),
+  password: $('#password'),
+  remember: $('#remember'),
+  loginBtn: $('#login-btn'),
+  btnLabel: $('.btn-label'),
+  spinner: $('.btn-spinner'),
+  errorBox: $('#error-box'),
+  errorText: $('#error-text'),
+  userName: $('#user-name'),
+  authNote: $('#auth-note'),
+  userRole: $('#user-role'),
+  validUntil: $('#valid-until'),
+  remaining: $('#remaining'),
+  banner: $('#banner'),
+  dropzone: $('#dropzone'),
+  dropTitle: $('#drop-title'),
+  dropHint: $('#drop-hint'),
+  fileInput: $('#file-input'),
+  convertPanel: $('#convert-panel'),
+  convertBtn: $('#convert-btn'),
+  cancelBtn: $('#cancel-btn'),
+  clearBtn: $('#clear-btn'),
+  convertStatus: $('#convert-status'),
+  fileList: $('#file-list'),
+  matrix: $('#matrix'),
+  matrixBody: $('#matrix-body'),
+  logoutBtn: $('#logout-btn'),
+  appVer: $('#app-ver'),
+  portalLine: $('#portal-line'),
+};
+
+let submitting = false;
+let lockedUntil = 0;
+let formats = null;
+let pendingTarget = null;
+const runningJobs = new Map();
+let progressTimer = null;
+let defaultAccept = '';
+
+/** 批次状态 */
+const batch = {
+  items: [], // {id, file, name, size, kind, status, result, error}
+  target: '',
+  running: false,
+  cancelled: false,
+  seq: 0,
+};
+
+// ── 登录 ────────────────────────────────────────────────
+function showError(code, message) {
+  els.errorText.textContent = message || FALLBACK_TEXT[code] || '登录失败，请稍后再试';
+  els.errorBox.classList.remove('hidden');
+}
+
+function clearError() {
+  els.errorBox.classList.add('hidden');
+}
+
+function setLoading(loading) {
+  submitting = loading;
+  const locked = Date.now() < lockedUntil;
+  els.loginBtn.disabled = loading || locked;
+  els.spinner.classList.toggle('hidden', !loading);
+  els.btnLabel.style.visibility = loading ? 'hidden' : 'visible';
+  els.username.disabled = loading;
+  els.password.disabled = loading;
+}
+
+function formatDate(ts) {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function showLogin() {
+  els.viewMain.classList.add('hidden');
+  els.viewLogin.classList.remove('hidden');
+  els.password.value = '';
+  clearError();
+  setLoading(false);
+  els.username.focus();
+}
+
+function showMain(session) {
+  els.viewLogin.classList.add('hidden');
+  els.viewMain.classList.remove('hidden');
+
+  els.userName.textContent = session.displayName || '—';
+  els.authNote.textContent = '已完成服务端认证';
+  els.userRole.textContent = session.role || '—';
+  els.validUntil.textContent = formatDate(session.expiresAt);
+  els.remaining.textContent = `${session.remainingDays ?? '—'} 天`;
+
+  let banner = null;
+  let danger = false;
+  if (session.enterpriseSuspended) {
+    banner = '所属企业已停用，暂时无法使用。请联系管理员。';
+    danger = true;
+  } else if (session.mustChangePassword) {
+    banner = '需要先在平台修改密码，修改后重新登录。';
+  }
+
+  const blocked = Boolean(banner);
+  if (banner) {
+    els.banner.textContent = banner;
+    els.banner.classList.remove('hidden');
+    els.banner.classList.toggle('danger', danger);
+  } else {
+    els.banner.classList.add('hidden');
+  }
+
+  els.dropzone.classList.toggle('hidden', blocked);
+  els.convertPanel.classList.add('hidden');
+  if (blocked) els.matrix.classList.add('hidden');
+  else renderMatrix();
+}
+
+// ── 批量转换 ────────────────────────────────────────────
+function humanSize(bytes) {
+  if (!bytes) return '0 B';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let i = 0;
+  let n = bytes;
+  while (n >= 1024 && i < units.length - 1) {
+    n /= 1024;
+    i += 1;
+  }
+  return `${n.toFixed(n >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+}
+
+function kindByExt(name) {
+  const ext = (/\.([a-z0-9]+)$/i.exec(name) || [])[1];
+  if (!ext || !formats) return 'unknown';
+  const lower = ext.toLowerCase();
+  const hit = formats.find((k) => k.exts.includes(lower));
+  return hit ? hit.kind : 'unknown';
+}
+
+function kindOfFile(file) {
+  if (file.type.startsWith('image/')) return 'image';
+  if (file.type.startsWith('audio/')) return 'audio';
+  if (file.type.startsWith('video/')) return 'video';
+  if (file.type === 'application/pdf') return 'pdf';
+  return kindByExt(file.name);
+}
+
+function targetsOf(kind) {
+  const def = formats && formats.find((k) => k.kind === kind);
+  if (!def) return [];
+  const bad = def.unsupported || {};
+  return def.targets.filter((t) => !bad[t]);
+}
+
+function defaultTargetFor(kind) {
+  const list = targetsOf(kind);
+  return list.length ? list[0] : null;
+}
+
+function statusText(item) {
+  switch (item.status) {
+    case 'pending':
+      return '等待中';
+    case 'running':
+      return typeof item.pct === 'number' ? `转换中 ${item.pct}%` : '转换中…';
+    case 'done':
+      return '已完成';
+    case 'error':
+      return item.error || '失败';
+    case 'skipped':
+      return '已取消';
+    default:
+      return '';
+  }
+}
+
+function renderList() {
+  els.fileList.innerHTML = '';
+  for (const item of batch.items) {
+    const li = document.createElement('li');
+    li.className = 'file-item';
+
+    const name = document.createElement('span');
+    name.className = 'name';
+    name.textContent = item.name;
+    name.title = item.name;
+
+    const meta = document.createElement('span');
+    meta.className = 'meta';
+    meta.textContent = humanSize(item.size);
+
+    const targets = targetsOf(item.kind);
+    const targetSel = document.createElement('select');
+    targetSel.className = 'row-target';
+    if (!targets.length) {
+      targetSel.disabled = true;
+      const opt = document.createElement('option');
+      opt.textContent = '不支持';
+      targetSel.appendChild(opt);
+    } else {
+      for (const t of targets) {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t.toUpperCase();
+        targetSel.appendChild(opt);
+      }
+      if (!targets.includes(item.target)) item.target = targets[0];
+      targetSel.value = item.target;
+      targetSel.disabled = batch.running || item.status === 'done';
+      targetSel.addEventListener('change', () => {
+        item.target = targetSel.value;
+      });
+    }
+
+    const status = document.createElement('span');
+    status.className = `status ${item.status === 'done' ? 'ok' : item.status === 'error' ? 'error' : ''}`;
+    status.textContent = statusText(item);
+
+    const action = document.createElement('span');
+    action.className = 'action';
+    if (item.status === 'done' && item.result) {
+      const btn = document.createElement('button');
+      btn.className = 'link';
+      btn.type = 'button';
+      if (item.result.blob) {
+        btn.textContent = '下载';
+        btn.addEventListener('click', () => {
+          const url = URL.createObjectURL(item.result.blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = item.result.filename;
+          a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 10000);
+        });
+      } else if (item.result.path) {
+        btn.textContent = '打开文件夹';
+        btn.addEventListener('click', () => window.api.app.reveal(item.result.path));
+      }
+      action.appendChild(btn);
+    }
+
+    li.append(name, meta, targetSel, status, action);
+    els.fileList.appendChild(li);
+  }
+}
+
+
+function renderMatrix() {
+  if (!formats || !formats.length) {
+    els.matrix.classList.add('hidden');
+    return;
+  }
+  els.matrixBody.innerHTML = '';
+
+  for (const kind of formats) {
+    const row = document.createElement('div');
+    row.className = 'matrix-row';
+
+    const label = document.createElement('span');
+    label.className = 'matrix-kind';
+    label.textContent = kind.label || kind.kind;
+
+    // 左：输入什么（全部支持的源格式）
+    const sources = document.createElement('span');
+    sources.className = 'matrix-src';
+    const exp = kind.experimental || [];
+    sources.textContent =
+      (kind.exts || []).map((e) => e.toUpperCase() + (exp.includes(e) ? '*' : '')).join(' · ');
+    sources.title = sources.textContent + (exp.length ? '\n* 实验性支持' : '');
+
+    const arrow = document.createElement('span');
+    arrow.className = 'matrix-arrow';
+    arrow.textContent = '→';
+
+    // 右：可以变成什么（可点，点了直接按这个组合选文件）
+    const chips = document.createElement('div');
+    chips.className = 'matrix-chips';
+
+    const bad = kind.unsupported || {};
+    for (const target of kind.targets || []) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip';
+      const reason = bad[target];
+      btn.disabled = kind.available === false || Boolean(reason);
+      btn.title = reason
+        ? target.toUpperCase() + '：' + reason
+        : '选 ' + (kind.exts || []).join(' / ') + ' 转成 ' + target.toUpperCase();
+      btn.innerHTML =
+        '<span class="dot"></span><span class="to">' + target.toUpperCase() + '</span>' +
+        (reason ? '<span class="mark">×</span>' : '');
+      if (!reason) btn.addEventListener('click', () => openPickerFor(kind, target));
+      chips.appendChild(btn);
+    }
+
+    row.append(label, sources, arrow, chips);
+    els.matrixBody.appendChild(row);
+  }
+
+  els.matrix.classList.remove('hidden');
+}
+
+function openPickerFor(kind, target) {
+  pendingTarget = target;
+  els.fileInput.accept = (kind.exts || []).map((e) => '.' + e).join(',');
+  els.fileInput.click();
+}
+
+function refreshSummary() {
+  els.clearBtn.classList.toggle('hidden', batch.running || !batch.items.length);
+
+  if (!batch.items.length) {
+    els.convertPanel.classList.add('hidden');
+    return;
+  }
+
+  const pending = batch.items.filter((i) => i.status === 'pending');
+  const unsupported = batch.items.filter((i) => !targetsOf(i.kind).length).length;
+
+  els.convertBtn.disabled = batch.running || !pending.length;
+
+  const parts = [`共 ${batch.items.length} 个文件`];
+  if (pending.length) parts.push(`待转换 ${pending.length}`);
+  if (unsupported) parts.push(`${unsupported} 个类型不支持`);
+  els.convertStatus.textContent = parts.join(' · ');
+  els.convertStatus.dataset.kind = unsupported ? 'error' : 'muted';
+}
+
+function addFiles(fileList) {
+  if (!fileList || !fileList.length) return;
+  const wasEmpty = batch.items.length === 0;
+
+  for (const file of fileList) {
+    const kind = kindOfFile(file);
+    batch.items.push({
+      id: ++batch.seq,
+      file,
+      name: file.name,
+      size: file.size,
+      kind,
+      target: pendingTarget && targetsOf(kind).includes(pendingTarget) ? pendingTarget : defaultTargetFor(kind),
+      status: 'pending',
+      pct: null,
+      result: null,
+      error: null,
+    });
+  }
+
+  if (wasEmpty) batch.cancelled = false;
+
+  pendingTarget = null;
+
+  els.convertPanel.classList.remove('hidden');
+  renderList();
+  refreshSummary();
+}
+
+async function runOne(item, target) {
+  item.status = 'running';
+  item.pct = 0;
+  renderList();
+
+  const jobId = 'job-' + item.id + '-' + Date.now();
+  runningJobs.set(jobId, item);
+
+  try {
+    const res = await window.api.convert.run(item.file, target, jobId);
+    if (res && res.ok) {
+      item.status = 'done';
+      item.result = res.data;
+    } else {
+      item.status = 'error';
+      item.error = (res && res.error && res.error.message) || '转换失败';
+    }
+  } catch (err) {
+    item.status = 'error';
+    item.error = (err && err.message) || '转换失败';
+  } finally {
+    runningJobs.delete(jobId);
+  }
+  renderList();
+}
+
+async function startBatch() {
+  if (batch.running || !batch.items.length) return;
+
+  const pending = batch.items.filter((i) => i.status === 'pending' || i.status === 'error' || i.status === 'skipped');
+  if (!pending.length) return;
+
+  const runnable = [];
+  for (const item of pending) {
+    item.result = null;
+    item.error = null;
+    if (item.target && targetsOf(item.kind).includes(item.target)) {
+      item.status = 'pending';
+      runnable.push(item);
+    } else {
+      item.status = 'error';
+      item.error = '不支持该格式';
+    }
+  }
+  if (!runnable.length) {
+    renderList();
+    refreshSummary();
+    return;
+  }
+
+  batch.running = true;
+  batch.cancelled = false;
+  els.convertBtn.disabled = true;
+  els.cancelBtn.classList.remove('hidden');
+  els.convertStatus.textContent = `转换中…（并发 2）`;
+  els.convertStatus.dataset.kind = 'muted';
+  renderList();
+
+  const queue = [...runnable];
+  const workers = Array.from({ length: Math.min(2, queue.length) }, async () => {
+    while (queue.length && !batch.cancelled) {
+      const item = queue.shift();
+      await runOne(item, item.target);
+    }
+  });
+  await Promise.all(workers);
+
+  // 取消后剩余任务标记掉
+  for (const item of queue) {
+    item.status = 'skipped';
+  }
+
+  batch.running = false;
+  els.convertBtn.disabled = false;
+  els.cancelBtn.classList.add('hidden');
+
+  const done = batch.items.filter((i) => i.status === 'done').length;
+  const failed = batch.items.filter((i) => i.status === 'error').length;
+  els.convertStatus.textContent = `完成 ${done} 个${failed ? `，失败 ${failed} 个` : ''}`;
+  els.convertStatus.dataset.kind = failed ? 'error' : 'ok';
+  renderList();
+}
+
+function clearBatch() {
+  if (batch.running) return;
+  batch.items = [];
+  els.fileList.innerHTML = '';
+  els.convertPanel.classList.add('hidden');
+  els.convertStatus.textContent = '';
+  refreshSummary();
+}
+
+function cancelBatch() {
+  if (!batch.running) return;
+  batch.cancelled = true;
+  els.convertStatus.textContent = '正在取消，等待进行中的任务结束…';
+}
+
+function wireConvert() {
+  defaultAccept = els.fileInput.accept;
+  if (!window.api.convert) {
+    els.dropTitle.textContent = '转换功能需在桌面端使用';
+    els.dropHint.textContent = '当前环境未接入转换模块';
+    els.dropzone.classList.add('disabled');
+    return;
+  }
+
+  els.dropzone.addEventListener('click', () => els.fileInput.click());
+  els.dropzone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') els.fileInput.click();
+  });
+
+  els.fileInput.addEventListener('change', () => {
+    addFiles(Array.from(els.fileInput.files || []));
+    els.fileInput.value = '';
+    els.fileInput.accept = defaultAccept;
+  });
+
+  for (const type of ['dragenter', 'dragover']) {
+    els.dropzone.addEventListener(type, (e) => {
+      e.preventDefault();
+      els.dropzone.classList.add('dragging');
+    });
+  }
+  for (const type of ['dragleave', 'drop']) {
+    els.dropzone.addEventListener(type, (e) => {
+      e.preventDefault();
+      els.dropzone.classList.remove('dragging');
+    });
+  }
+  els.dropzone.addEventListener('drop', (e) => {
+    const files = e.dataTransfer && e.dataTransfer.files;
+    if (files && files.length) addFiles(Array.from(files));
+  });
+
+  if (window.api.convert.onProgress) {
+    window.api.convert.onProgress(({ jobId, pct }) => {
+      const item = runningJobs.get(jobId);
+      if (!item) return;
+      item.pct = pct;
+      // 400ms 内合并一次渲染，避免每帧重排整个列表
+      if (progressTimer) return;
+      progressTimer = setTimeout(() => {
+        progressTimer = null;
+        renderList();
+      }, 200);
+    });
+  }
+
+  els.convertBtn.addEventListener('click', startBatch);
+  els.cancelBtn.addEventListener('click', cancelBatch);
+  els.clearBtn.addEventListener('click', clearBatch);
+}
+
+// ── 启动 ────────────────────────────────────────────────
+async function restoreRememberedAccount() {
+  try {
+    const saved = localStorage.getItem('fmt.rememberedUser');
+    if (saved) {
+      els.username.value = saved;
+      els.remember.checked = true;
+    }
+  } catch {
+    /* localStorage 不可用不影响登录 */
+  }
+}
+
+async function boot() {
+  try {
+    const info = await window.api.app.info();
+    if (info && info.ok) {
+      els.appVer.textContent = `v${info.data.version}`;
+      const base = info.data.serverBaseUrl;
+      if (base && base !== '预览模式') {
+        els.portalLine.textContent = `服务 · ${base}`;
+        els.portalLine.classList.remove('hidden');
+      }
+    }
+  } catch {
+    /* 版本号只是展示 */
+  }
+
+  wireConvert();
+
+  if (window.api.convert) {
+    try {
+      const res = await window.api.convert.formats();
+      if (res && res.ok) formats = res.data.kinds;
+    } catch {
+      /* 拿不到格式表就按不支持处理 */
+    }
+  }
+
+  await restoreRememberedAccount();
+
+  if (window.api.auth.onSessionLost) {
+    window.api.auth.onSessionLost(() => {
+      showLogin();
+      showError('AUTH_SESSION_EXPIRED');
+    });
+  }
+
+  try {
+    const res = await window.api.auth.session();
+    if (res && res.ok && res.data) {
+      showMain(res.data);
+      return;
+    }
+  } catch {
+    /* 读不到会话就按未登录处理 */
+  }
+
+  showLogin();
+}
+
+els.form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (submitting || Date.now() < lockedUntil) return;
+
+  clearError();
+  const username = els.username.value.trim();
+  const password = els.password.value;
+
+  if (!username || !password) {
+    showError('AUTH_INPUT_EMPTY');
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const res = await window.api.auth.login(username, password);
+    if (!res || !res.ok) {
+      const err = (res && res.error) || {};
+      showError(err.code, err.message);
+
+      if (err.code === 'AUTH_LOCKED' || err.locked) {
+        lockedUntil = Date.now() + 15 * 60 * 1000;
+        els.btnLabel.textContent = '已锁定，请稍后再试';
+        setTimeout(() => {
+          lockedUntil = 0;
+          els.btnLabel.textContent = '登录';
+          setLoading(false);
+        }, 15 * 60 * 1000);
+      }
+      setLoading(false);
+      return;
+    }
+
+    try {
+      if (els.remember.checked) localStorage.setItem('fmt.rememberedUser', username);
+      else localStorage.removeItem('fmt.rememberedUser');
+    } catch {
+      /* 忽略 */
+    }
+
+    setLoading(false);
+    showMain(res.data);
+  } catch (err) {
+    showError('AUTH_UNAVAILABLE', err && err.message);
+    setLoading(false);
+  }
+});
+
+els.logoutBtn.addEventListener('click', async () => {
+  try {
+    await window.api.auth.logout();
+  } finally {
+    showLogin();
+  }
+});
+
+boot();
+
+</script>
+  </body>
+</html>

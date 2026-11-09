@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+    />
+    <title>格式转换器</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <rect x="1" y="1" width="24" height="24" rx="7" fill="#D9643A" />
+            <path d="M8 13h9M13.5 9.5 17 13l-3.5 3.5" stroke="#fff" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+          <span>格式转换器</span>
+          <span class="ver" id="app-ver">v0.1.0</span>
+        </div>
+        <div class="platform" id="platform">云平台认证</div>
+      </header>
+
+      <!-- 登录 -->
+      <main id="view-login" class="view">
+        <section class="login-card">
+          <div class="login-head">
+            <h1>登录</h1>
+            <p class="sub">使用云平台账号继续</p>
+          </div>
+
+          <form id="login-form" autocomplete="off" novalidate>
+            <label class="field">
+              <span class="label">账号</span>
+              <input id="username" name="username" type="text" placeholder="用户名或手机号"
+                     autocomplete="username" spellcheck="false" />
+            </label>
+
+            <label class="field">
+              <span class="label">密码</span>
+              <input id="password" name="password" type="password" placeholder="请输入密码"
+                     autocomplete="current-password" />
+            </label>
+
+            <div class="row">
+              <label class="remember">
+                <input id="remember" type="checkbox" />
+                <span>记住账号</span>
+              </label>
+              <span class="hint" id="net-hint">仅登录时联网</span>
+            </div>
+
+            <div class="error hidden" id="error-box" role="alert">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4" />
+                <path d="M8 4.6v4.2M8 11.2v.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+              <span id="error-text"></span>
+            </div>
+
+            <button id="login-btn" class="primary" type="submit">
+              <span class="btn-label">登录</span>
+              <span class="btn-spinner hidden" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <p class="footnote">
+            登录状态由服务端签发，在线时自动续期，刷新令牌 14 天有效。
+          </p>
+          <p class="portal-line hidden" id="portal-line"></p>
+        </section>
+      </main>
+
+      <!-- 登录后 -->
+      <main id="view-main" class="view hidden">
+        <section class="home">
+          <div class="greet">
+            <h1>你好，<span id="user-name">—</span></h1>
+            <p class="sub" id="auth-note">已完成云平台认证</p>
+          </div>
+
+          <div class="banner hidden" id="banner"></div>
+
+          <div class="cards">
+            <div class="card">
+              <span class="card-label">角色</span>
+              <span class="card-value" id="user-role">—</span>
+            </div>
+            <div class="card">
+              <span class="card-label">登录有效期至</span>
+              <span class="card-value" id="valid-until">—</span>
+            </div>
+            <div class="card">
+              <span class="card-label">剩余天数</span>
+              <span class="card-value" id="remaining">—</span>
+            </div>
+          </div>
+
+          <div class="dropzone" id="dropzone" role="button" tabindex="0">
+            <svg width="42" height="42" viewBox="0 0 42 42" aria-hidden="true">
+              <rect x="6" y="4" width="30" height="34" rx="6" fill="none" stroke="#C9B7A2" stroke-width="2" />
+              <path d="M14 20h14M21 15.5 25.5 20 21 24.5" stroke="#C9B7A2" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+            <p id="drop-title">选择文件开始转换</p>
+            <span class="muted" id="drop-hint">可以一次选多个，也可以直接拖进来</span>
+            <input type="file" id="file-input" accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.odt,.ods,.odp,.rtf,.txt,.csv" multiple hidden />
+          </div>
+
+          <div class="convert hidden" id="convert-panel">
+            <div class="convert-row">
+              <button id="convert-btn" class="primary compact" type="button">开始转换</button>
+              <button id="cancel-btn" class="ghost hidden" type="button">取消</button>
+              <button id="clear-btn" class="ghost hidden" type="button">清空列表</button>
+            </div>
+            <div class="convert-status" id="convert-status"></div>
+            <ul class="file-list" id="file-list"></ul>
+          </div>
+
+          <section class="matrix hidden" id="matrix">
+            <div class="matrix-head">
+              <h2>支持的转换</h2>
+              <span class="muted">点任意一项，直接按这个组合选文件</span>
+            </div>
+            <div class="matrix-body" id="matrix-body"></div>
+          </section>
+
+          <div class="actions">
+            <button id="logout-btn" class="ghost" type="button">退出登录</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
